@@ -125,6 +125,36 @@ async function createRSVP(b: CreateRSVPBody) {
   return entityKey;
 }
 
+async function listRSVPsForEvent(eventKey: string) {
+  const res = await publicClient
+    .buildQuery()
+    .where([eq("app", APP_ID), eq("type", "rsvp"), eq("eventKey", eventKey)])
+    .withAttributes(true)
+    .withPayload(true)
+    .fetch();
+
+  return res.entities.map((e) => ({
+    key: e.key,
+    payloadText: e.toText(),
+    attributes: e.attributes,
+  }));
+}
+
+async function listAttendanceForEvent(eventKey: string) {
+  const res = await publicClient
+    .buildQuery()
+    .where([eq("app", APP_ID), eq("type", "attendance"), eq("eventKey", eventKey)])
+    .withAttributes(true)
+    .withPayload(true)
+    .fetch();
+
+  return res.entities.map((e) => ({
+    key: e.key,
+    payloadText: e.toText(),
+    attributes: e.attributes,
+  }));
+}
+
 type CheckInBody = {
   eventKey: string;
   attendee: `0x${string}`; // wallet address
@@ -157,6 +187,22 @@ async function checkIn(b: CheckInBody) {
 }
 
 const app = new Hono();
+
+app.get("/rsvps", async (c) => {
+  const eventKey = c.req.query("eventKey");
+  if (!eventKey) return c.json({ error: "eventKey query param is required" }, 400);
+
+  const rsvps = await listRSVPsForEvent(eventKey);
+  return c.json({ rsvps });
+});
+
+app.get("/attendance", async (c) => {
+  const eventKey = c.req.query("eventKey");
+  if (!eventKey) return c.json({ error: "eventKey query param is required" }, 400);
+
+  const attendance = await listAttendanceForEvent(eventKey);
+  return c.json({ attendance });
+});
 
 app.get("/", (c) => c.json({ ok: true, app: APP_ID, address: account.address }));
 

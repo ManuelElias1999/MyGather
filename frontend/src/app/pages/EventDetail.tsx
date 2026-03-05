@@ -9,7 +9,7 @@ import { Alert, AlertDescription } from '../components/ui/alert';
 import { Separator } from '../components/ui/separator';
 import { toast } from 'sonner';
 
-const API_BASE = 'https://etha-precarnival-sanford.ngrok-free.dev';
+const API_BASE = 'http://localhost:8787';
 const ATTENDEE_ADDRESS = '0xB73D0739675aE6f7E18cf6846F78BeB49125e60E';
 
 interface Event {

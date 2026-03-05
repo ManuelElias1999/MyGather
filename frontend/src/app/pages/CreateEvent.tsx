@@ -10,7 +10,7 @@ import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
 import { Alert, AlertDescription } from '../components/ui/alert';
 import { toast } from 'sonner';
 
-const API_BASE = 'https://etha-precarnival-sanford.ngrok-free.dev';
+const API_BASE = 'http://localhost:8787';
 
 interface FormData {
   title: string;

@@ -188,6 +188,14 @@ async function checkIn(b: CheckInBody) {
 
 const app = new Hono();
 
+app.use("*", async (c, next) => {
+  c.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  c.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  c.header("Access-Control-Allow-Headers", "Content-Type, ngrok-skip-browser-warning");
+  if (c.req.method === "OPTIONS") return c.body(null, 204);
+  await next();
+});
+
 app.get("/rsvps", async (c) => {
   const eventKey = c.req.query("eventKey");
   if (!eventKey) return c.json({ error: "eventKey query param is required" }, 400);

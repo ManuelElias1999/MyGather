@@ -26,7 +26,7 @@ interface ParsedEvent {
   tags?: string[];
 }
 
-const API_BASE = 'https://etha-precarnival-sanford.ngrok-free.dev';
+const API_BASE = 'http://localhost:8787';
 
 export default function DiscoverEvents() {
   const navigate = useNavigate();

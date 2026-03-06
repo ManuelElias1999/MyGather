@@ -108,6 +108,7 @@ async function listMyEventsByCity(city: string) {
 
 type CreateRSVPBody = {
   eventKey: string;
+  attendee: `0x${string}`;
   status?: "going" | "canceled";
 };
 
@@ -117,7 +118,7 @@ async function createRSVP(b: CreateRSVPBody) {
 
   const payload = {
     eventKey: b.eventKey,
-    attendee: account.address,
+    attendee: b.attendee,
     status,
     createdAt: nowISO,
   };
@@ -129,7 +130,7 @@ async function createRSVP(b: CreateRSVPBody) {
       { key: "app", value: APP_ID },
       { key: "type", value: "rsvp" },
       { key: "eventKey", value: b.eventKey },
-      { key: "attendee", value: account.address },
+      { key: "attendee", value: b.attendee },
       { key: "status", value: status },
       { key: "createdAt", value: nowISO },
     ],
@@ -256,7 +257,9 @@ app.get("/events", async (c) => {
 
 app.post("/rsvp", async (c) => {
   const body = await c.req.json<CreateRSVPBody>();
-  if (!body?.eventKey) return c.json({ error: "eventKey is required" }, 400);
+  if (!body?.eventKey || !body?.attendee) {
+    return c.json({ error: "eventKey and attendee are required" }, 400);
+  }
   const key = await createRSVP(body);
   return c.json({ rsvpKey: key });
 });

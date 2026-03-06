@@ -1,9 +1,11 @@
+import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
 import { Toaster } from './components/ui/sonner';
 import Navbar from './components/Navbar';
 import DiscoverEvents from './pages/DiscoverEvents';
 import CreateEvent from './pages/CreateEvent';
 import EventDetail from './pages/EventDetail';
+
 
 export default function App() {
   return (

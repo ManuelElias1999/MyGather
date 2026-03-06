@@ -1,5 +1,7 @@
+import React from "react";
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router';
+import { useWallet } from "../../hooks/useWallet";
 import {
   Calendar,
   MapPin,
@@ -20,7 +22,6 @@ import { Separator } from '../components/ui/separator';
 import { toast } from 'sonner';
 
 const API_BASE = 'http://localhost:8787';
-const ATTENDEE_ADDRESS = '0xB73D0739675aE6f7E18cf6846F78BeB49125e60E';
 
 interface ParsedEvent {
   title: string;
@@ -57,6 +58,7 @@ interface ParsedAttendance {
 export default function EventDetail() {
   const { eventKey } = useParams<{ eventKey: string }>();
   const navigate = useNavigate();
+  const { address } = useWallet();
 
   const [event, setEvent] = useState<ParsedEvent | null>(null);
   const [rsvps, setRsvps] = useState<RSVP[]>([]);
@@ -177,8 +179,12 @@ export default function EventDetail() {
   };
 
   const handleRSVP = async () => {
+    if (!address) {
+      toast.error("Connect wallet first");
+      return;
+    }
     setRsvpLoading(true);
-
+    
     try {
       const response = await fetch(`${API_BASE}/rsvp`, {
         method: 'POST',
@@ -186,8 +192,9 @@ export default function EventDetail() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          eventKey: eventKey,
-          status: 'going'
+          eventKey,
+          attendee: address,
+          status: "going",
         })
       });
 
@@ -208,6 +215,10 @@ export default function EventDetail() {
   };
 
   const handleCheckin = async () => {
+    if (!address) {
+      toast.error("Connect wallet first");
+      return;
+    }
     setCheckinLoading(true);
 
     try {
@@ -218,7 +229,7 @@ export default function EventDetail() {
         },
         body: JSON.stringify({
           eventKey: eventKey,
-          attendee: ATTENDEE_ADDRESS
+          attendee: address,
         })
       });
 
@@ -399,7 +410,7 @@ export default function EventDetail() {
             <div className="flex flex-col gap-3 lg:w-64">
               <Button
                 onClick={handleRSVP}
-                disabled={rsvpLoading}
+                disabled={rsvpLoading || !address}
                 className="bg-blue-600 hover:bg-blue-700"
               >
                 {rsvpLoading ? (
@@ -413,7 +424,7 @@ export default function EventDetail() {
 
               <Button
                 onClick={handleCheckin}
-                disabled={checkinLoading}
+                disabled={checkinLoading || !address}
                 variant="outline"
                 className="border-slate-300"
               >

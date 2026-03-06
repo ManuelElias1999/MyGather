@@ -35,6 +35,15 @@ This hackathon entry emphasizes Arkiv’s core strengths: **entities + attribute
 
 ---
 
+## Live Demo
+
+- **Web App (Vercel):** https://my-gather.vercel.app
+- **Backend API (Render):** https://mygather.onrender.com
+
+> Note: The backend may take ~30–60s to “wake up” on the first request (Render free tier).
+
+---
+
 ## Data Model (Arkiv Entities)
 
 All entities share:
@@ -230,6 +239,7 @@ A production version would add **signature verification (EIP-712 / SIWE)** to pr
 * MetaMask (or any wallet that injects `window.ethereum`) to connect an address for RSVP / Check-in
 * Node.js 20+ (recommended 22+)
 * A testnet private key funded on Arkiv Kaolin (test ETH)
+* If you want to point the frontend to a different backend, set `VITE_API_BASE` in your environment (Vercel) or `.env` (local).
 
 ---
 

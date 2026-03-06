@@ -283,9 +283,22 @@ Open:
 4. Click **RSVP (Going)** and show RSVPs list increment
 5. Click **Check-in** and show Attendance list increment
 6. Return to **Discover** and show the event card listed by city
+- Optional: open **/pricing** to see the business model and gasless credit plans
 
 ---
 
+## Business Model (Pricing)
+
+MyGather is designed as a **B2B SaaS for event organizers**, with an optional **gasless relayer** add-on (so attendees don’t need ETH for gas).
+
+We implemented a **Pricing** view in the app to showcase the model:
+- `Free`: limited events/RSVPs for small communities
+- `Pro`: includes **gasless credits** (RSVP + Check-in actions paid by the relayer)
+- `Enterprise`: custom credits, team features, integrations, SLA
+
+In-app pricing page: `http://localhost:5173/pricing`
+
+---
 ## Screenshots
 
 ### Discover Events
@@ -296,6 +309,9 @@ Open:
 
 ### Event Detail (RSVP + Attendance)
 ![Event Detail](frontend/public/screenshots/03-detail.png)
+
+### Business Model
+![Pricing plans](frontend/public/screenshots/04-pricing.png)
 
 ---
 

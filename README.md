@@ -44,6 +44,11 @@ This hackathon entry emphasizes Arkiv’s core strengths: **entities + attribute
 
 ---
 
+## Pitch Deck
+Slides: https://www.figma.com/deck/WxPm059U39Usq9c0cQr1l0/MyGather_Arkiv?node-id=1-43&p=f&t=sTpdnR7UNstluGtW-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1
+
+---
+
 ## Data Model (Arkiv Entities)
 
 All entities share:

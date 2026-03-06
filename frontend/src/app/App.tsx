@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import DiscoverEvents from './pages/DiscoverEvents';
 import CreateEvent from './pages/CreateEvent';
 import EventDetail from './pages/EventDetail';
+import Pricing from './pages/Pricing';
 
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/discover" element={<DiscoverEvents />} />
           <Route path="/create" element={<CreateEvent />} />
           <Route path="/event/:eventKey" element={<EventDetail />} />
+          <Route path="/pricing" element={<Pricing />} />
         </Routes>
         <Toaster position="top-right" />
       </div>

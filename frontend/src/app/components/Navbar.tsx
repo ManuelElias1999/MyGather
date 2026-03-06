@@ -47,6 +47,16 @@ export default function Navbar() {
             Discover Events
           </Link>
           <Link
+            to="/pricing"
+            className={`rounded-md px-3 py-2 text-sm font-medium ${
+              location.pathname.startsWith("/pricing")
+                ? "bg-blue-50 text-blue-700"
+                : "text-slate-700 hover:bg-slate-100"
+            }`}
+          >
+            Pricing
+          </Link>
+          <Link
             to="/create"
             className={`rounded-md px-3 py-2 text-sm font-medium ${
               isCreate ? "bg-blue-50 text-blue-700" : "text-slate-700 hover:bg-slate-100"

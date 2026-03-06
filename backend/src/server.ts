@@ -43,6 +43,20 @@ type CreateEventBody = {
   tags?: string[];
 };
 
+async function getEventByKey(eventKey: string) {
+  const res = await publicClient
+    .buildQuery()
+    .where([eq("app", APP_ID), eq("type", "event")])
+    .withAttributes(true)
+    .withPayload(true)
+    .fetch();
+
+  const match = res.entities.find((e) => e.key === eventKey);
+  if (!match) return null;
+
+  return { key: match.key, payloadText: match.toText(), attributes: match.attributes };
+}
+
 async function createEvent(e: CreateEventBody) {
   const payload = {
     title: e.title,
@@ -194,6 +208,16 @@ app.use("*", async (c, next) => {
   c.header("Access-Control-Allow-Headers", "Content-Type, ngrok-skip-browser-warning");
   if (c.req.method === "OPTIONS") return c.body(null, 204);
   await next();
+});
+
+app.get("/event", async (c) => {
+  const eventKey = c.req.query("eventKey");
+  if (!eventKey) return c.json({ error: "eventKey query param is required" }, 400);
+
+  const event = await getEventByKey(eventKey);
+  if (!event) return c.json({ error: "event not found" }, 404);
+
+  return c.json({ event });
 });
 
 app.get("/rsvps", async (c) => {

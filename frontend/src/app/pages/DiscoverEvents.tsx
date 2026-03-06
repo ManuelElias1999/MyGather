@@ -26,7 +26,7 @@ interface ParsedEvent {
   tags?: string[];
 }
 
-const API_BASE = 'http://localhost:8787';
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8787";
 
 export default function DiscoverEvents() {
   const navigate = useNavigate();

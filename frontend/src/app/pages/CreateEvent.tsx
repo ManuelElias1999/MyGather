@@ -10,7 +10,7 @@ import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
 import { Alert, AlertDescription } from '../components/ui/alert';
 import { toast } from 'sonner';
 
-const API_BASE = 'http://localhost:8787';
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8787";
 
 interface FormData {
   title: string;

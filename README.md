@@ -4,6 +4,8 @@ MyGather is a Web3-native event platform built on **Arkiv** as the database laye
 
 Built for the **[ARKIV] Web3 Database Builders Challenge**.
 
+![Dashboard](frontend/public/screenshots/01-discover.png)
+
 ---
 
 ## What we built

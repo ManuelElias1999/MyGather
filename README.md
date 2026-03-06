@@ -66,6 +66,7 @@ Represents an event created by an organizer.
   "tags": ["Web3"],
   "organizer": "0x..."
 }
+```
 
 ### 2) RSVP Entity (`type=rsvp`)
 

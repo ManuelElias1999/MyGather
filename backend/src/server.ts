@@ -204,7 +204,7 @@ async function checkIn(b: CheckInBody) {
 const app = new Hono();
 
 app.use("*", async (c, next) => {
-  c.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  c.header("Access-Control-Allow-Origin", "*");
   c.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
   c.header("Access-Control-Allow-Headers", "Content-Type, ngrok-skip-browser-warning");
   if (c.req.method === "OPTIONS") return c.body(null, 204);

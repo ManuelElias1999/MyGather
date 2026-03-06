@@ -208,10 +208,24 @@ Base URL (local): `http://localhost:8787`
 
 ---
 
+## Wallet & Gas Model (Hackathon-friendly)
+
+MyGather uses a **gasless relayer** pattern for the MVP:
+
+- Users **connect an EVM wallet (MetaMask)** to identify themselves (`attendee` address).
+- The backend wallet signs and pays for Arkiv writes (Create Event / RSVP / Check-in).
+- This makes the app easy to test: **no user gas required**, but actions are still linked to the user’s wallet address.
+
+Security note (MVP): the backend currently trusts the `attendee` address sent by the client.
+A production version would add **signature verification (EIP-712 / SIWE)** to prove the user owns the address.
+
+---
+
 ## Running locally
 
 ### Prerequisites
 
+* MetaMask (or any wallet that injects `window.ethereum`) to connect an address for RSVP / Check-in
 * Node.js 20+ (recommended 22+)
 * A testnet private key funded on Arkiv Kaolin (test ETH)
 
@@ -260,12 +274,26 @@ Open:
 
 ## Demo flow (recommended 60–90s video)
 
+0. Click **Connect Wallet** (MetaMask) to set your attendee address
 1. Go to **Create Event**
 2. Fill the form and click **Create Event**
 3. Click **View Event** to open Event Detail
 4. Click **RSVP (Going)** and show RSVPs list increment
 5. Click **Check-in** and show Attendance list increment
 6. Return to **Discover** and show the event card listed by city
+
+---
+
+## Screenshots
+
+### Discover Events
+![Discover Events](frontend/public/screenshots/01-discover.png)
+
+### Create Event
+![Create Event](frontend/public/screenshots/02-create.png)
+
+### Event Detail (RSVP + Attendance)
+![Event Detail](frontend/public/screenshots/03-detail.png)
 
 ---
 
